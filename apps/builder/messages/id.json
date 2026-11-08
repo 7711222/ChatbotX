@@ -7881,6 +7881,15 @@
     },
     "messages": {
       "empty": "Belum ada janji temu."
+    },
+    "actions": {
+      "create": "Buat janji temu"
+    },
+    "create": {
+      "title": "Buat janji temu",
+      "description": "Pilih kalender dan waktu yang tersedia untuk memesan bagi kontak ini.",
+      "noConversationHint": "Tidak ada percakapan yang terbuka, jadi kontak tidak akan menerima pesan konfirmasi.",
+      "success": "Janji temu dibuat."
     }
   },
   "appointmentManagement": {
@@ -11161,5 +11170,18 @@
     "accessRemoved": "The provider removed access to this account. Reconnect to resume.",
     "needsReconnect": "Reconnect required.",
     "inactive": "This channel is inactive."
+  },
+  "inbox": {
+    "createAppointment": {
+      "title": "Buat Janji Temu",
+      "description": "Kirim tautan pemesanan kalender ke kontak, atau buka untuk memesan atas nama mereka.",
+      "inactive": "Tidak aktif",
+      "sendLink": "Kirim Tautan Kalender",
+      "goToLink": "Buka Tautan Kalender",
+      "sent": "Tautan pemesanan terkirim.",
+      "failed": "Tidak dapat membuat tautan pemesanan.",
+      "noCalendars": "Belum ada kalender janji temu.",
+      "manageCalendars": "Kelola kalender janji temu"
+    }
   }
 }

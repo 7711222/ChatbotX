@@ -290,9 +290,18 @@ class AppointmentService extends BaseService {
       id: input.contactId,
     })
     if (input.conversationId != null) {
-      await conversationService.findByOrFail({
+      const conversation = await conversationService.findByOrFail({
         where: { workspaceId: input.workspaceId, id: input.conversationId },
       })
+      // Confirmation flows and reminders go to the booking's conversation, so
+      // it must be this contact's — never another contact's thread.
+      if (conversation.contactId !== input.contactId) {
+        throw new ChatbotXException(
+          "Appointment conversation does not belong to the contact",
+          "invalidAppointmentConversation",
+          400,
+        )
+      }
     }
 
     const availabilityContext =
@@ -332,6 +341,21 @@ class AppointmentService extends BaseService {
         await this.hasFutureScheduledAppointmentForContact(
           input,
           calendar.maxAppointmentsPerUser,
+          tx,
+        )
+      ) {
+        throw new AppointmentAlreadyScheduledException()
+      }
+      // Held under the slot and cap locks, so two concurrent bookings by the
+      // same contact for the same start serialize and the second one fails.
+      if (
+        await appointmentRepository.existsScheduledForContactAt(
+          {
+            workspaceId: input.workspaceId,
+            calendarId: input.calendarId,
+            contactId: input.contactId,
+            startAt: input.startAt,
+          },
           tx,
         )
       ) {
@@ -784,7 +808,11 @@ class AppointmentService extends BaseService {
     contactId?: string
     startDate: Date
     endDate: Date
-  }): Promise<{ text: string; slots: { startAt: Date; endAt: Date }[] }> {
+  }): Promise<{
+    text: string
+    slots: { startAt: Date; endAt: Date }[]
+    timezone: string
+  }> {
     const calendar = await appointmentCalendarService.findByOrFail({
       workspaceId: input.workspaceId,
       id: input.calendarId,
@@ -795,6 +823,7 @@ class AppointmentService extends BaseService {
     return {
       text: formatAvailabilityText(slots, calendar.timezone),
       slots,
+      timezone: calendar.timezone,
     }
   }
 

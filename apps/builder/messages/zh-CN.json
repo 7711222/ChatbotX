@@ -8426,6 +8426,15 @@
     },
     "messages": {
       "empty": "暂无预约。"
+    },
+    "actions": {
+      "create": "创建预约"
+    },
+    "create": {
+      "title": "创建预约",
+      "description": "选择日历和空闲时间，为该联系人预约。",
+      "noConversationHint": "当前没有打开的会话，联系人将不会收到确认消息。",
+      "success": "预约已创建。"
     }
   },
   "appointmentManagement": {
@@ -11161,5 +11170,18 @@
     "accessRemoved": "The provider removed access to this account. Reconnect to resume.",
     "needsReconnect": "Reconnect required.",
     "inactive": "This channel is inactive."
+  },
+  "inbox": {
+    "createAppointment": {
+      "title": "创建预约",
+      "description": "向联系人发送日历的预约链接，或打开链接代其预约。",
+      "inactive": "未启用",
+      "sendLink": "发送日历链接",
+      "goToLink": "打开日历链接",
+      "sent": "预约链接已发送。",
+      "failed": "无法创建预约链接。",
+      "noCalendars": "暂无预约日历。",
+      "manageCalendars": "管理预约日历"
+    }
   }
 }

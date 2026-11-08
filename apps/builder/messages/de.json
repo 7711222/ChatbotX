@@ -7881,6 +7881,15 @@
     },
     "messages": {
       "empty": "Noch keine Termine."
+    },
+    "actions": {
+      "create": "Termin erstellen"
+    },
+    "create": {
+      "title": "Termin erstellen",
+      "description": "Wähle einen Kalender und eine freie Zeit, um für diesen Kontakt zu buchen.",
+      "noConversationHint": "Keine Unterhaltung geöffnet, daher erhält der Kontakt keine Bestätigung.",
+      "success": "Termin erstellt."
     }
   },
   "appointmentManagement": {
@@ -11161,5 +11170,18 @@
     "accessRemoved": "The provider removed access to this account. Reconnect to resume.",
     "needsReconnect": "Reconnect required.",
     "inactive": "This channel is inactive."
+  },
+  "inbox": {
+    "createAppointment": {
+      "title": "Termin erstellen",
+      "description": "Sende dem Kontakt einen Buchungslink für einen Kalender oder öffne ihn, um in seinem Namen zu buchen.",
+      "inactive": "Inaktiv",
+      "sendLink": "Kalenderlink senden",
+      "goToLink": "Zum Kalenderlink",
+      "sent": "Buchungslink gesendet.",
+      "failed": "Der Buchungslink konnte nicht erstellt werden.",
+      "noCalendars": "Noch keine Terminkalender.",
+      "manageCalendars": "Terminkalender verwalten"
+    }
   }
 }

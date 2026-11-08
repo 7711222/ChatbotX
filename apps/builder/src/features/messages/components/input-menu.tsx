@@ -8,6 +8,7 @@ import { SelectFlowDialog } from "@/features/flows/components/select-flow-dialog
 import SavedReplyManage from "@/features/saved-replies/saved-reply-manage"
 import type { SavedReplyResource } from "@/features/saved-replies/schema/resource"
 import { useChatStore } from "../../chat/store/chat-store-provider"
+import { CreateAppointmentDialogTrigger } from "./create-appointment-trigger"
 import EmojiPicker from "./emoji-picker"
 import { SendProductsDialogTrigger } from "./send-products-trigger"
 
@@ -79,6 +80,12 @@ export const InputMenu = ({
         <SendProductsDialogTrigger
           bypassThreadControlLock={bypassThreadControlLock}
           channel={channel.data}
+          inboxId={contactInbox.inboxId}
+        />
+      )}
+      {!activePost && contactInbox && (
+        <CreateAppointmentDialogTrigger
+          bypassThreadControlLock={bypassThreadControlLock}
           inboxId={contactInbox.inboxId}
         />
       )}

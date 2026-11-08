@@ -7881,6 +7881,15 @@
     },
     "messages": {
       "empty": "Nicio programare încă."
+    },
+    "actions": {
+      "create": "Creează programare"
+    },
+    "create": {
+      "title": "Creează programare",
+      "description": "Alege un calendar și o oră disponibilă pentru a face o programare acestui contact.",
+      "noConversationHint": "Nicio conversație nu este deschisă, așa că contactul nu va primi un mesaj de confirmare.",
+      "success": "Programare creată."
     }
   },
   "appointmentManagement": {
@@ -11161,5 +11170,18 @@
     "accessRemoved": "The provider removed access to this account. Reconnect to resume.",
     "needsReconnect": "Reconnect required.",
     "inactive": "This channel is inactive."
+  },
+  "inbox": {
+    "createAppointment": {
+      "title": "Creează programare",
+      "description": "Trimite contactului un link de rezervare pentru un calendar sau deschide-l pentru a rezerva în numele lui.",
+      "inactive": "Inactiv",
+      "sendLink": "Trimite linkul calendarului",
+      "goToLink": "Mergi la linkul calendarului",
+      "sent": "Linkul de rezervare a fost trimis.",
+      "failed": "Linkul de rezervare nu a putut fi creat.",
+      "noCalendars": "Nu există încă calendare de programări.",
+      "manageCalendars": "Gestionează calendarele de programări"
+    }
   }
 }

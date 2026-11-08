@@ -40,6 +40,20 @@ vi.mock("../send-products-trigger", () => ({
   ),
 }))
 
+vi.mock("../create-appointment-trigger", () => ({
+  CreateAppointmentDialogTrigger: (props: {
+    inboxId: string
+    bypassThreadControlLock?: boolean
+  }) => (
+    <button
+      data-bypass={String(props.bypassThreadControlLock)}
+      data-inbox={props.inboxId}
+      data-testid="create-appointment"
+      type="button"
+    />
+  ),
+}))
+
 let container: HTMLDivElement
 let root: Root
 
@@ -121,5 +135,39 @@ describe("InputMenu — send products", () => {
     expect(
       container.querySelector('[data-testid="flow-dialog"]'),
     ).not.toBeNull()
+  })
+})
+
+describe("InputMenu — create appointment", () => {
+  const createAppointment = () =>
+    container.querySelector<HTMLElement>('[data-testid="create-appointment"]')
+
+  test("is offered on any channel once the conversation's inbox is known", () => {
+    render({
+      setContent: vi.fn(),
+      contactInbox: { channel: "telegram", inboxId: "inbox-3" },
+      bypassThreadControlLock: false,
+    })
+
+    expect(createAppointment()?.dataset).toMatchObject({
+      inbox: "inbox-3",
+      bypass: "false",
+    })
+  })
+
+  test("is not offered before the conversation's inbox is known", () => {
+    render({ setContent: vi.fn() })
+
+    expect(createAppointment()).toBeNull()
+  })
+
+  test("is not offered while replying to a post comment", () => {
+    chatState.activePost = { id: "post-1" }
+    render({
+      setContent: vi.fn(),
+      contactInbox: { channel: "messenger", inboxId: "inbox-1" },
+    })
+
+    expect(createAppointment()).toBeNull()
   })
 })

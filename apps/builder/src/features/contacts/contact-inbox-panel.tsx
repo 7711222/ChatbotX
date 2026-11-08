@@ -8,9 +8,10 @@ import {
 } from "@chatbotx.io/ui/components/ui/accordion"
 import { Button } from "@chatbotx.io/ui/components/ui/button"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { Loader2Icon } from "lucide-react"
+import { Loader2Icon, PlusIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { CreateContactAppointmentDialog } from "@/features/appointment-management/components/inbox/create-contact-appointment-dialog"
 import { ContactPipelinesSection } from "@/features/pipelines/components/inbox/contact-pipelines-section"
 import { orpc } from "@/lib/orpc/query"
 import { useChatStore } from "../chat/store/chat-store-provider"
@@ -204,6 +205,9 @@ export const ContactInboxPanel = ({
         content: (
           <ContactAppointmentsSection
             contactId={contactData.id}
+            conversationId={activeConversationId}
+            inboxId={activeConversation?.contactInboxes[0]?.inboxId ?? null}
+            key={contactData.id}
             workspaceId={workspaceId}
           />
         ),
@@ -257,6 +261,7 @@ export const ContactInboxPanel = ({
     setContactData,
     threadControl,
     activeConversationId,
+    activeConversation?.contactInboxes[0]?.inboxId,
   ])
 
   if (!storeContact) {
@@ -458,10 +463,16 @@ function ContactCouponsSection({
 function ContactAppointmentsSection({
   workspaceId,
   contactId,
+  conversationId,
+  inboxId,
 }: {
   workspaceId: string
   contactId: string
+  conversationId: string | null
+  inboxId: string | null
 }) {
+  const t = useTranslations()
+  const [isCreating, setIsCreating] = useState(false)
   const queryOptions =
     orpc.appointmentsAPI.listContactAppointmentsAPI.queryOptions({
       input: { workspaceId, contactId },
@@ -485,5 +496,27 @@ function ContactAppointmentsSection({
     )
   }
 
-  return <ContactAppointmentsList appointments={appointments} />
+  return (
+    <div className="grid gap-3 text-sm">
+      <ContactAppointmentsList appointments={appointments} />
+      <Button
+        className="justify-self-start"
+        onClick={() => setIsCreating(true)}
+        size="sm"
+        type="button"
+        variant="outline"
+      >
+        <PlusIcon className="size-4" />
+        {t("appointments.actions.create")}
+      </Button>
+      <CreateContactAppointmentDialog
+        contactId={contactId}
+        conversationId={conversationId}
+        inboxId={inboxId}
+        onOpenChange={setIsCreating}
+        open={isCreating}
+        workspaceId={workspaceId}
+      />
+    </div>
+  )
 }

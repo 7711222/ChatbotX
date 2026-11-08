@@ -327,6 +327,12 @@ chatbotx conversations messages update <conversationId> <messageId> --createdAt 
                                                      #  --newAttachmentName --newAttachmentSize --removeAttachment]
 chatbotx conversations message delete <conversationId> <messageId> --createdAt <createdAt>
 chatbotx conversations attribute add <conversationId> <messageId> --createdAt <createdAt>  # [--liked --hidden]
+
+# Appointment booking link (scope `appointments`; `--send true` also needs `inbox`)
+chatbotx conversations appointment-booking-link add <conversationId> --calendarId <calendarId>
+                                                     # [--inboxId --send --bypassThreadControlLock]
+                                                     # Returns {url, expiresAt (7 days), calendar, messageId};
+                                                     # --send true also sends it as a message with a booking button
 ```
 
 ---
@@ -716,7 +722,8 @@ chatbotx appointment-reminders list                   # [--page --perPage --stat
 chatbotx appointments list                            # [--calendarId --tab --search --page --perPage]
 chatbotx appointments get <id>
 chatbotx appointments create --calendarId <calendarId> --contactId <contactId> --startAt <startAt> --inviteeTimezone <inviteeTimezone>
-                                                       # [--conversationId]  (book appointment)
+                                                       # [--conversationId --inboxId]  (book appointment)
+                                                       # --inboxId (needs --conversationId) also sends the calendar's confirmation flow
 chatbotx appointments cancel add <id>
 chatbotx appointments delete <id>
 ```
